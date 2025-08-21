@@ -26,3 +26,19 @@ How can we make the script more reusable by passing the AWS region as an argumen
 
 How can we export the EC2 instance details into a structured format (like CSV/JSON) for auditing purposes?
 👉 The script only prints output to the console, which isn’t ideal for reporting.
+
+-----
+Prod user password change 
+How can we add error handling if the aws emr list-studios or list-workspaces command fails (e.g., missing permissions, wrong region)?
+👉 Currently, the script assumes the AWS CLI always succeeds.
+
+How can we log deleted workspace details (Studio ID, Workspace ID, Last Modified) into a file for audit/compliance?
+👉 Right now, it only prints to the console.
+
+How can we add a dry-run option to preview which workspaces would be deleted before actually deleting them?
+👉 This avoids accidental deletion.
+
+How can we make the script reusable by accepting REGION and INACTIVITY_DAYS as input arguments instead of hardcoding them?
+👉 At present, they are fixed in the script.
+
+

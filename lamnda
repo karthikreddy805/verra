@@ -1,0 +1,39 @@
+check ec2 instance type lambda function
+
+import boto3
+import os
+ 
+ec2 = boto3.client('ec2')
+ 
+def lambda_handler(event, context):
+    environments = ['dev', 'pp', 'prod']
+    instance_summary = {env: [] for env in environments}
+ 
+    # Describe all instances
+    response = ec2.describe_instances()
+ 
+    for reservation in response['Reservations']:
+        for instance in reservation['Instances']:
+            instance_id = instance['InstanceId']
+            instance_type = instance['InstanceType']
+            tags = {tag['Key'].lower(): tag['Value'].lower() for tag in instance.get('Tags', [])}
+ 
+            env = tags.get('environment')
+ 
+            if env in environments:
+                instance_summary[env].append({
+                    'InstanceId': instance_id,
+                    'InstanceType': instance_type
+                })
+ 
+    # Log output (this could be changed to email, S3, etc.)
+    for env, instances in instance_summary.items():
+        print(f"\nEnvironment: {env.upper()}")
+        if not instances:
+            print("  No instances found.")
+        else:
+            for inst in instances:
+                print(f"  - ID: {inst['InstanceId']}, Type: {inst['InstanceType']}")
+ 
+    return instance_summary
+ 

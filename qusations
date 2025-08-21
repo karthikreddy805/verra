@@ -27,16 +27,14 @@ Do we need to add safety checks (like excluding certain prefixes or asking for c
 
 -----
 Prod user password change 
-How can we add error handling if the aws emr list-studios or list-workspaces command fails (e.g., missing permissions, wrong region)?
-👉 Currently, the script assumes the AWS CLI always succeeds.
+Can we add pagination handling for both list-studios and list-workspaces in case there are more results than a single API call returns?
 
-How can we log deleted workspace details (Studio ID, Workspace ID, Last Modified) into a file for audit/compliance?
-👉 Right now, it only prints to the console.
+Should we add a dry-run option so the script only reports which workspaces would be deleted without actually deleting them?
 
-How can we add a dry-run option to preview which workspaces would be deleted before actually deleting them?
-👉 This avoids accidental deletion.
+Would it be useful to add logging to a file (deleted vs skipped workspaces) for auditing and compliance tracking?
 
-How can we make the script reusable by accepting REGION and INACTIVITY_DAYS as input arguments instead of hardcoding them?
-👉 At present, they are fixed in the script.
+Should we add error handling and retries for AWS CLI failures (e.g., network issues or API rate limits)?
+
+Do we want to make REGION and INACTIVITY_DAYS configurable via environment variables or CLI arguments instead of hardcoding them?
 
 

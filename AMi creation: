@@ -1,0 +1,38 @@
+!/bin/bash
+
+# === Configuration ===
+INSTANCE_ID="i-0123456789abcdef0"  # Replace with your EC2 instance ID
+AMI_NAME="MyApp-AMI-$(date +%Y%m%d-%H%M%S)"
+NO_REBOOT="true"  # Set to false if you want to reboot before AMI creation
+REGION="ap-south-1"  # Replace with your AWS region
+
+# === Trigger SSM Automation ===
+echo "Starting AMI creation for instance: $INSTANCE_ID"
+
+EXECUTION_ID=$(aws ssm start-automation-execution \
+  --document-name "AWS-CreateImage" \
+  --parameters "InstanceId=$INSTANCE_ID,ImageName=$AMI_NAME,NoReboot=$NO_REBOOT" \
+  --region $REGION \
+  --query "AutomationExecutionId" \
+  --output text)
+
+echo "SSM Automation Execution started: $EXECUTION_ID"
+
+# === Monitor Execution Status ===
+while true; do
+  STATUS=$(aws ssm get-automation-execution \
+    --automation-execution-id "$EXECUTION_ID" \
+    --region $REGION \
+    --query "AutomationExecution.AutomationExecutionStatus" \
+    --output text)
+
+  echo "Current Status: $STATUS"
+
+  if [[ "$STATUS" == "Success" || "$STATUS" == "Failed" || "$STATUS" == "Cancelled" ]]; then
+    break
+  fi
+
+  sleep 10
+done
+
+echo "AMI creation process completed with status: $STATUS"

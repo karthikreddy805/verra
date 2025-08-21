@@ -15,17 +15,15 @@ How can we improve logging and notifications for this script?
 -------
 SSM parameter cleanup script
 
-How can this script be improved to handle large numbers of EC2 instances (pagination support)?
-👉 Currently, it may miss results if there are many instances.
+Can we improve efficiency by using aws ssm delete-parameters (batch delete) instead of deleting one parameter at a time?
 
-How can we extract and display only the Name tag instead of dumping all tags?
-👉 Right now, the Tags field shows raw data and can be hard to read.
+Should we add pagination support (--next-token) in case there are more parameters than a single describe-parameters call returns?
 
-How can we make the script more reusable by passing the AWS region as an argument instead of hardcoding it?
-👉 At present, the region is fixed inside the script.
+Would it be helpful to add a dry-run option so we can preview which parameters will be deleted before running the actual deletion?
 
-How can we export the EC2 instance details into a structured format (like CSV/JSON) for auditing purposes?
-👉 The script only prints output to the console, which isn’t ideal for reporting.
+Should we implement error handling and logging to track which parameters failed to delete?
+
+Do we need to add safety checks (like excluding certain prefixes or asking for confirmation) to avoid accidental deletion of important parameters?
 
 -----
 Prod user password change 

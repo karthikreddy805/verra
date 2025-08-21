@@ -13,3 +13,16 @@ How can we improve logging and notifications for this script?
 
 
 -------
+SSM parameter cleanup script
+
+How can this script be improved to handle large numbers of EC2 instances (pagination support)?
+👉 Currently, it may miss results if there are many instances.
+
+How can we extract and display only the Name tag instead of dumping all tags?
+👉 Right now, the Tags field shows raw data and can be hard to read.
+
+How can we make the script more reusable by passing the AWS region as an argument instead of hardcoding it?
+👉 At present, the region is fixed inside the script.
+
+How can we export the EC2 instance details into a structured format (like CSV/JSON) for auditing purposes?
+👉 The script only prints output to the console, which isn’t ideal for reporting.

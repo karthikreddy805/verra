@@ -1,0 +1,22 @@
+#!/bin/bash
+ 
+# Prefix of parameters to delete
+PREFIX="/temp/"
+ 
+# List all parameters with the prefix
+aws ssm describe-parameters \
+  --parameter-filters "Key=Name,Option=BeginsWith,Values=$PREFIX" \
+  --query "Parameters[*].Name" --output text | tr '\t' '\n' > params_to_delete.txt
+ 
+# Loop through and delete each parameter
+while read param; do
+  echo "Deleting: $param"
+  aws ssm delete-parameter --name "$param"
+done < params_to_delete.txt
+ 
+# Cleanup
+rm -f params_to_delete.txt
+######################################################
+
+Use AWS CLI or Boto3 script to list all EC2 instances:
+aws ec2 describe-instances --query 'Reservations[*].Instances[*].[InstanceId,InstanceType,Tags]' --output table

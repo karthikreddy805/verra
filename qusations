@@ -1,0 +1,15 @@
+Ami creations 
+How can we add error handling if the SSM execution fails to start (e.g., wrong instance ID or missing IAM role)?
+👉 Right now, the script assumes the execution will always start successfully. Adding a check for empty EXECUTION_ID would make it more robust.
+
+How can we capture and display the actual AMI ID once the creation is successful?
+👉 The script only shows “Success,” but does not output the created AMI ID. Fetching it from AutomationExecution.Outputs would be useful.
+
+How can we make the script reusable instead of hardcoding INSTANCE_ID and REGION?
+👉 Accepting them as input arguments or environment variables would make the script more flexible for multiple instances/regions.
+
+How can we improve logging and notifications for this script?
+👉 Right now, it only prints to the console. Adding logs to a file or sending a notification (e.g., SNS or email) when AMI creation completes would improve operational visibility.
+
+
+-------

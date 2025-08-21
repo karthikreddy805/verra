@@ -37,4 +37,18 @@ Should we add error handling and retries for AWS CLI failures (e.g., network iss
 
 Do we want to make REGION and INACTIVITY_DAYS configurable via environment variables or CLI arguments instead of hardcoding them?
 
+-----
+
+Lambda 
+
+hould we add pagination handling for describe_instances() using NextToken, since large environments may exceed a single API call limit?
+
+Can we make the list of environments configurable (via environment variables or a parameter store) instead of hardcoding ['dev', 'pp', 'prod']?
+
+Do we want to add an output option (e.g., save to S3, send via SNS/email, or push to CloudWatch Logs) instead of just printing?
+
+Should we add error handling and retries in case the describe_instances() call fails due to throttling or permissions issues?
+
+Would it be useful to include extra metadata (like state, launch time, or availability zone) in the output for better reporting?
+
 
